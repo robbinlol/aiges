@@ -13,12 +13,10 @@ workflows:
           dockerfile: ./docker/gpu/base/cuda-10.1/Dockerfile
           executor: aws-ecr/default
           extra-build-args: '--compress'
-          new-profile-name: newProfileName
           no-output-timeout: 20m
           path: ./docker/gpu/base/cuda-10.1/Dockerfile
           platform: linux/amd64
-          profile-name: myProfileName
-          public-registry: false
+          public-registry: true
           push-image: true
           region: us-east-2
           registry-id: ECR_REGISTRY
@@ -26,5 +24,5 @@ workflows:
           repo-scan-on-push: true
           role-arn: 'arn:aws:iam::123456789012:role/testing'
           skip-when-tags-exist: false
-          source-profile: sourceProfileName
+       
           tag: 'latest'

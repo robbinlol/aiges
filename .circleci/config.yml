@@ -1,0 +1,30 @@
+version: '2.1'
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          aws-access-key-id: AWS_ACCESS_KEY_ID 
+          aws-cli-version: latest
+          aws-secret-access-key: AWS_ACCESS_KEY_KEY
+          context: ./docker/gpu/base/cuda-10.1/
+          create-repo: true
+          dockerfile: ./docker/gpu/base/cuda-10.1/Dockerfile
+          executor: aws-ecr/default
+          extra-build-args: '--compress'
+          new-profile-name: newProfileName
+          no-output-timeout: 20m
+          path: ./docker/gpu/base/cuda-10.1/Dockerfile
+          platform: linux/amd64
+          profile-name: myProfileName
+          public-registry: false
+          push-image: true
+          region: us-east-2
+          registry-id: ECR_REGISTRY
+          repo: cuda-go-python-base
+          repo-scan-on-push: true
+          role-arn: 'arn:aws:iam::123456789012:role/testing'
+          skip-when-tags-exist: false
+          source-profile: sourceProfileName
+          tag: 'latest'
